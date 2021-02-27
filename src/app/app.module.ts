@@ -8,6 +8,8 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RouterModule } from '@angular/router';
+import { HeroDetailsComponent } from './hero-details/hero-details.component';
+import { HeroListComponent } from './hero-list/hero-list.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { RouterModule } from '@angular/router';
     NavbarComponent,
     FavoriteComponent,
     SearchComponent,
-    ProfileComponent
+    ProfileComponent,
+    HeroDetailsComponent,
+    HeroListComponent
   ],
   imports: [
     BrowserModule,
