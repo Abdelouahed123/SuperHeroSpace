@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -10,6 +10,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { RouterModule } from '@angular/router';
 import { HeroDetailsComponent } from './hero-details/hero-details.component';
 import { HeroListComponent } from './hero-list/hero-list.component';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { initializeKeycloak } from './utility/app.init';
+import { AuthGuard } from './utility/app.guard';
 
 @NgModule({
   declarations: [
@@ -26,13 +29,21 @@ import { HeroListComponent } from './hero-list/hero-list.component';
     BrowserModule,
     RouterModule.forRoot([
       {path: '' , component: HomeComponent},
-      {path: 'favorite' , component: FavoriteComponent},
-      {path: 'search' , component: SearchComponent},
-      {path: 'profile/:id' , component: ProfileComponent},
+      {path: 'favorite' , component: FavoriteComponent , canActivate: [AuthGuard]},
+      {path: 'search' , component: SearchComponent , canActivate: [AuthGuard]},
+      {path: 'profile/:id' , component: ProfileComponent , canActivate: [AuthGuard]},
       {path: '**', component: HomeComponent}
-    ])
+    ]),
+    KeycloakAngularModule
   ],
-  providers: [],
+  providers: [
+    {
+    provide: APP_INITIALIZER,
+    useFactory: initializeKeycloak,
+    multi: true,
+    deps: [KeycloakService],
+    },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

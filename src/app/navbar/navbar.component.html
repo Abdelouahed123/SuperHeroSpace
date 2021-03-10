@@ -4,6 +4,9 @@
       <ul class="right hide-on-med-and-down leftnav">
         <li routerLinkActive="active"><a routerLink="/favorite"><i class="material-icons left">favorite</i>Favorites</a></li>
         <li routerLinkActive="active"><a routerLink="/search"><i class="material-icons right">search</i>Search</a></li>
+        <li><a class="right">{{ user }}</a></li>
+        <!-- <li><a class="right">{{ roles }}</a></li> -->
+        <li *ngIf="user != ''"><a class="right" (click)=logout()>Log Out</a></li>
       </ul>
     </div>
   </nav>
